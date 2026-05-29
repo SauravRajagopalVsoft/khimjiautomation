@@ -1,19 +1,20 @@
 import { expect } from '@playwright/test';
 import { captureFailureScreenshot } from '../framework/failure-screenshot.js';
+import { wrapPageForFailures, wasScreenshotCaptured } from '../framework/failure-aware-page.js';
 
 class BmApprovalsFlow {
-  constructor(page, auth) {
-    this.page = page;
+  constructor(page, auth, config) {
+    this.page = wrapPageForFailures(page, 'bm-approvals');
     this.auth = auth;
+    this.auth.page = this.page;
+    this.config = config;
   }
 
   async run() {
     try {
-      const { username } = this.auth.config.users.branchManager;
+      const { username } = this.config.users.branchManager;
 
       await this.auth.loginAsBranchManager();
-
-
 
       await expect(this.page.getByRole('heading', { name: `Welcome back, ${username}!` })).toBeVisible({ timeout: 60000 });
       await expect(this.page.getByRole('heading', { name: 'My Approvals' })).toBeVisible({ timeout: 60000 });
@@ -26,14 +27,16 @@ class BmApprovalsFlow {
       await this.page.waitForTimeout(5000);
       await this.page.getByRole('button', { name: 'Continue / Submit Annexure' }).click();
       await this.page.getByRole('textbox', { name: 'Serial number' }).fill(`testpktt_${Date.now()}`);
-      await this.page.getByRole('textbox', { name: '0.00' }).fill('1');
+      await this.page.getByRole('textbox', { name: '0.00' }).fill('2');
+      await this.page.waitForTimeout(5000);
       await this.page.getByRole('button', { name: 'Submit Packet' }).click();
-      //throw new Error('Intentional failure to verify screenshot capture');
       await this.page.getByRole('button', { name: 'Confirm Disbursement' }).click();
       await this.page.getByRole('button', { name: 'Approve' }).click();
       await this.auth.logout();
     } catch (error) {
-      await captureFailureScreenshot(this.page, 'bm-approvals');
+      if (!wasScreenshotCaptured(error)) {
+        await captureFailureScreenshot(this.page, 'bm-approvals');
+      }
       throw error;
     }
   }

@@ -7,5 +7,5 @@ test.setTimeout(180000);
 
 test('login and first valuation flow', async ({ page, context }) => {
   const auth = new AuthFlow(page, TestConfig);
-  await new FirstValuationFlow(page, auth, context).run();
+  await new FirstValuationFlow(page, auth, TestConfig, context).run();
 });

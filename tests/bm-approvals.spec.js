@@ -7,5 +7,5 @@ test.setTimeout(180000);
 
 test('bm approvals flow', async ({ page }) => {
   const auth = new AuthFlow(page, TestConfig);
-  await new BmApprovalsFlow(page, auth).run();
+  await new BmApprovalsFlow(page, auth, TestConfig).run();
 });

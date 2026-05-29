@@ -1,9 +1,12 @@
 import { captureFailureScreenshot } from '../framework/failure-screenshot.js';
+import { wrapPageForFailures, wasScreenshotCaptured } from '../framework/failure-aware-page.js';
 
 class SecondValuationFlow {
-  constructor(page, auth) {
-    this.page = page;
+  constructor(page, auth, config) {
+    this.page = wrapPageForFailures(page, 'second-valuation');
     this.auth = auth;
+    this.auth.page = this.page;
+    this.config = config;
   }
 
   async run() {
@@ -18,7 +21,9 @@ class SecondValuationFlow {
       await this.page.getByRole('button', { name: 'Submit' }).click();
       await this.auth.logout();
     } catch (error) {
-      await captureFailureScreenshot(this.page, 'second-valuation');
+      if (!wasScreenshotCaptured(error)) {
+        await captureFailureScreenshot(this.page, 'second-valuation');
+      }
       throw error;
     }
   }

@@ -1,9 +1,12 @@
 import { captureFailureScreenshot } from '../framework/failure-screenshot.js';
+import { wrapPageForFailures, wasScreenshotCaptured } from '../framework/failure-aware-page.js';
 
 class FirstValuationFlow {
-  constructor(page, auth, context = null) {
-    this.page = page;
+  constructor(page, auth, config, context = null) {
+    this.page = wrapPageForFailures(page, 'first-valuation');
     this.auth = auth;
+    this.auth.page = this.page;
+    this.config = config;
     this.context = context;
   }
 
@@ -17,7 +20,7 @@ class FirstValuationFlow {
 
       await this.page.getByRole('button', { name: 'Customer' }).click();
       await this.page.getByRole('link', { name: 'Customer List' }).click();
-      await this.page.getByRole('textbox', { name: 'UCIC Number' }).fill(this.auth.config.customer.ucicNumber);
+      await this.page.getByRole('textbox', { name: 'UCIC Number' }).fill(this.config.customer.ucicNumber);
       await this.page.getByRole('button', { name: 'Search' }).click();
 
       await this.page.getByRole('button', { name: 'Request New Loan' }).click();
@@ -57,7 +60,9 @@ class FirstValuationFlow {
       await this.page.getByRole('button', { name: 'Submit Loan Request' }).click();
       await this.auth.logout();
     } catch (error) {
-      await captureFailureScreenshot(this.page, 'first-valuation');
+      if (!wasScreenshotCaptured(error)) {
+        await captureFailureScreenshot(this.page, 'first-valuation');
+      }
       throw error;
     }
   }
