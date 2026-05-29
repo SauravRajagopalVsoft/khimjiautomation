@@ -1,6 +1,10 @@
 class TestConfig {
   static baseUrl = 'https://gldev-ui.azurewebsites.net';
 
+  static customer = {
+    ucicNumber: 'UCIC-10-19',
+  };
+
   static users = {
     cashier: {
       role: 'Cashier',
