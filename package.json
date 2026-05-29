@@ -2,9 +2,11 @@
   "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "login.spec.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx playwright test",
+    "test:first-valuation": "npx playwright test user-flows/first-valuation.js",
+    "test:second-valuation": "npx playwright test user-flows/second-valuation.js",
+    "test:bm-approval": "npx playwright test user-flows/bm-approvals.js"
   },
   "keywords": [],
   "author": "",
