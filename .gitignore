@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Playwright output (test runs, reports, traces)
+test-results/
+**/test-results/**
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment and secrets (use test-config or env locally)
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.idea/
+*.swp
+*.swo
+*~
+
+# Optional local overrides
+*.local.js
