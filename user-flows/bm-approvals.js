@@ -26,9 +26,8 @@ class BmApprovalsFlow {
       await this.page.getByRole('button', { name: 'Save' }).click();
       await this.page.waitForTimeout(5000);
       await this.page.getByRole('button', { name: 'Continue / Submit Annexure' }).click();
-      await this.page.getByRole('textbox', { name: 'Serial number' }).fill(`testpktt_${Date.now()}`);
+      await this.page.getByRole('textbox', { name: 'Serial number' }).fill(`TestPacket_${Date.now()}`);
       await this.page.getByRole('textbox', { name: '0.00' }).fill('2');
-      await this.page.waitForTimeout(5000);
       await this.page.getByRole('button', { name: 'Submit Packet' }).click();
       await this.page.getByRole('button', { name: 'Confirm Disbursement' }).click();
       await this.page.getByRole('button', { name: 'Approve' }).click();
