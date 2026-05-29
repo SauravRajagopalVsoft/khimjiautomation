@@ -1,17 +1,17 @@
 import { test, expect } from '@playwright/test';
-import { MasterFlow } from '../framework/master-flow.js';
+import { AuthFlow } from '../framework/auth-flow.js';
 import { TestConfig } from '../config/test-config.js';
 
 class BmApprovalsFlow {
-  constructor(page, masterFlow) {
+  constructor(page, auth) {
     this.page = page;
-    this.masterFlow = masterFlow;
+    this.auth = auth;
   }
 
   async run() {
-    const { username } = this.masterFlow.config.users.branchManager;
+    const { username } = this.auth.config.users.branchManager;
 
-    await this.masterFlow.loginAsBranchManager();
+    await this.auth.loginAsBranchManager();
 
     await expect(this.page.getByRole('heading', { name: `Welcome back, ${username}!` })).toBeVisible({ timeout: 60000 });
     await expect(this.page.getByRole('heading', { name: 'My Approvals' })).toBeVisible({ timeout: 60000 });
@@ -28,15 +28,15 @@ class BmApprovalsFlow {
     await this.page.getByRole('button', { name: 'Submit Packet' }).click();
     await this.page.getByRole('button', { name: 'Confirm Disbursement' }).click();
     await this.page.getByRole('button', { name: 'Approve' }).click();
-    await this.masterFlow.logout();
+    await this.auth.logout();
   }
 }
 
 test.setTimeout(180000);
 
 test('bm approvals flow', async ({ page }) => {
-  const masterFlow = new MasterFlow(page, TestConfig);
-  await new BmApprovalsFlow(page, masterFlow).run();
+  const auth = new AuthFlow(page, TestConfig);
+  await new BmApprovalsFlow(page, auth).run();
 });
 
 export { BmApprovalsFlow };

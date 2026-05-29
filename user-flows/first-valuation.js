@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
-import { MasterFlow } from '../framework/master-flow.js';
+import { AuthFlow } from '../framework/auth-flow.js';
 import { TestConfig } from '../config/test-config.js';
 
 class FirstValuationFlow {
-  constructor(page, masterFlow, context = null) {
+  constructor(page, auth, context = null) {
     this.page = page;
-    this.masterFlow = masterFlow;
+    this.auth = auth;
     this.context = context;
   }
 
@@ -14,7 +14,7 @@ class FirstValuationFlow {
       await this.context.grantPermissions(['camera']);
     }
 
-    await this.masterFlow.loginAsCashier();
+    await this.auth.loginAsCashier();
 
     await this.page.getByRole('button', { name: 'Customer' }).click();
     await this.page.getByRole('link', { name: 'Customer List' }).click();
@@ -56,15 +56,15 @@ class FirstValuationFlow {
     await this.page.locator('div').filter({ hasText: /^KGL675H018 - \(Dynamic LTV\)Code: KGL675H018 - \(Dynamic LTV\)$/ }).first().click();
     await this.page.getByRole('button', { name: 'Submit' }).click();
     await this.page.getByRole('button', { name: 'Submit Loan Request' }).click();
-    await this.masterFlow.logout();
+    await this.auth.logout();
   }
 }
 
 test.setTimeout(180000);
 
 test('login and first valuation flow', async ({ page, context }) => {
-  const masterFlow = new MasterFlow(page, TestConfig);
-  await new FirstValuationFlow(page, masterFlow, context).run();
+  const auth = new AuthFlow(page, TestConfig);
+  await new FirstValuationFlow(page, auth, context).run();
 });
 
 export { FirstValuationFlow };

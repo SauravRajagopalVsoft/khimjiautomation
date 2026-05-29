@@ -1,4 +1,4 @@
-class MasterFlow {
+class AuthFlow {
   constructor(page, config) {
     this.page = page;
     this.config = config;
@@ -39,4 +39,4 @@ class MasterFlow {
   }
 }
 
-export { MasterFlow };
+export { AuthFlow };
