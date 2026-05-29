@@ -1,7 +1,3 @@
-import { test } from '@playwright/test';
-import { AuthFlow } from '../framework/auth-flow.js';
-import { TestConfig } from '../config/test-config.js';
-
 class SecondValuationFlow {
   constructor(page, auth) {
     this.page = page;
@@ -20,12 +16,5 @@ class SecondValuationFlow {
     await this.auth.logout();
   }
 }
-
-test.setTimeout(180000);
-
-test('second valuation flow', async ({ page }) => {
-  const auth = new AuthFlow(page, TestConfig);
-  await new SecondValuationFlow(page, auth).run();
-});
 
 export { SecondValuationFlow };

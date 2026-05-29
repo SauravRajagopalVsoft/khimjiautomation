@@ -1,6 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { AuthFlow } from '../framework/auth-flow.js';
-import { TestConfig } from '../config/test-config.js';
+import { expect } from '@playwright/test';
 
 class BmApprovalsFlow {
   constructor(page, auth) {
@@ -31,12 +29,5 @@ class BmApprovalsFlow {
     await this.auth.logout();
   }
 }
-
-test.setTimeout(180000);
-
-test('bm approvals flow', async ({ page }) => {
-  const auth = new AuthFlow(page, TestConfig);
-  await new BmApprovalsFlow(page, auth).run();
-});
 
 export { BmApprovalsFlow };

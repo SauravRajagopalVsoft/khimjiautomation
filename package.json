@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npx playwright test",
-    "test:first-valuation": "npx playwright test user-flows/first-valuation.js",
-    "test:second-valuation": "npx playwright test user-flows/second-valuation.js",
-    "test:bm-approval": "npx playwright test user-flows/bm-approvals.js"
+    "test": "npx playwright test tests/end-to-end.spec.js",
+    "test:first-valuation": "npx playwright test tests/first-valuation.spec.js",
+    "test:second-valuation": "npx playwright test tests/second-valuation.spec.js",
+    "test:bm-approval": "npx playwright test tests/bm-approvals.spec.js"
   },
   "keywords": [],
   "author": "",
