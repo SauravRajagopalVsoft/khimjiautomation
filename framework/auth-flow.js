@@ -33,6 +33,10 @@ class AuthFlow {
     await this.openAndLogin(this.config.users.branchManager);
   }
 
+  async loginAsAccounts() {
+    await this.openAndLogin(this.config.users.accounts);
+  }
+
   async logout() {
     await this.page.getByRole('button', { name: 'User profile menu' }).click();
     await this.page.getByText('Logout').click();

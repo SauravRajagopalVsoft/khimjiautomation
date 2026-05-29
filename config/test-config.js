@@ -29,6 +29,16 @@ class TestConfig {
       username: 'branchmng110',
       password: 'Branchmng@110',
     },
+    accounts: {
+      role: 'Accounts',
+      username: 'accounts001',
+      password: 'Computer@123',
+    },
+  };
+
+  static cashDisbursement = {
+    queueLink: 'Bank Disbursement High 72',
+    debitBankAccount: 'HDFC0100456 -',
   };
 }
 

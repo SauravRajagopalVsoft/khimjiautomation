@@ -6,7 +6,8 @@
     "e2e": "npx playwright test tests/end-to-end.spec.js",
     "first-valuation": "npx playwright test tests/first-valuation.spec.js",
     "second-valuation": "npx playwright test tests/second-valuation.spec.js",
-    "bm-approval": "npx playwright test tests/bm-approvals.spec.js"
+    "bm-approval": "npx playwright test tests/bm-approvals.spec.js",
+    "cash-disbursement": "npx playwright test tests/cash-disbursement.spec.js"
   },
   "keywords": [],
   "author": "",

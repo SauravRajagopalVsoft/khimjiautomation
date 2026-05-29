@@ -14,24 +14,29 @@ STEPS (run in order for a full loan)
 1. First valuation (Cashier)
    Creates a loan request: customer lookup, loan details, photos, ornaments, nominee, submit.
    Command:
-     npm run first-valuation
+     npm run first-valuation-- --headed 
 
 2. Second valuation (Front Office)
    Opens the second-valuation task and submits karat/condition.
    Command:
-     npm run second-valuation
+     npm run second-valuation-- --headed 
 
 3. BM approvals (Branch Manager)
    Approves the loan, submits packet, confirms disbursement.
    Command:
-     npm run bm-approval
+     npm run bm-approval-- --headed 
 
-FULL PIPELINE (all 3 steps in one run — optional)
--------------------------------------------------
-  npm run e2e
+4. Cash disbursement (Accounts)
+   Marks bank disbursement as paid with UTR and remarks.
+   Command:
+     npm run cash-disbursement -- --headed
+
+FULL PIPELINE (all 4 steps in one run — optional)
+------------------------------------------------
+  npm run e2e -- --headed
 
 NOTES
 -----
-- Steps 2 and 3 expect step 1 to have completed successfully on the same environment.
+- Steps 2–4 expect earlier steps to have completed successfully on the same environment.
 - Each command opens a browser and runs the flow automatically; no manual clicks needed.
 - Config (URL, users) is in config/test-config.js.
