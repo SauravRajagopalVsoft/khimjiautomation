@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import { captureFailureScreenshot } from '../framework/failure-screenshot.js';
 import { wrapPageForFailures, wasScreenshotCaptured } from '../framework/failure-aware-page.js';
 
@@ -51,11 +52,12 @@ class FirstValuationFlow {
       await this.page.getByRole('button', { name: 'Save & Continue' }).click();
 
       await this.page.getByRole('textbox', { name: 'Enter nominee name' }).fill('test');
-      await this.page.getByRole('combobox').click();
+      await this.page.getByRole('region', { name: 'Nominee Details' }).getByRole('combobox').click();
       await this.page.getByText('Mother', { exact: true }).click();
       await this.page.locator('input[type="date"]').fill('1997-01-01');
       await this.page.getByRole('button', { name: 'Save & Continue' }).click();
-      await this.page.locator('div').filter({ hasText: /^KGL675H018 - \(Dynamic LTV\)Code: KGL675H018 - \(Dynamic LTV\)$/ }).first().click();
+      await this.page.locator('div').filter({ hasText: this.config.loan.selectionPattern }).first().click();
+      await expect(this.page.getByRole('button', { name: 'Submit' })).toBeEnabled({ timeout: 60000 });
       await this.page.getByRole('button', { name: 'Submit' }).click();
       await this.page.getByRole('button', { name: 'Submit Loan Request' }).click();
       await this.auth.logout();

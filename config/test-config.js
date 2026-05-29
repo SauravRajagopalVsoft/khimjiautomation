@@ -5,6 +5,14 @@ class TestConfig {
     ucicNumber: 'UCIC-10-19',
   };
 
+  static loan = {
+    schemeCode: 'KGL675H018 - (Dynamic LTV)',
+    get selectionPattern() {
+      const label = `${this.schemeCode}Code: ${this.schemeCode}`;
+      return new RegExp(`^${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`);
+    },
+  };
+
   static users = {
     cashier: {
       role: 'Cashier',
