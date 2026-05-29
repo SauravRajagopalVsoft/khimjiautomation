@@ -11,7 +11,7 @@ class CashDisbursementFlow {
 
   async run() {
     const { queueLink, debitBankAccount } = this.config.cashDisbursement;
-    const suffix = Date.now();
+    const dateSuffix = Date.now();
 
     try {
       await this.auth.loginAsAccounts();
@@ -22,8 +22,8 @@ class CashDisbursementFlow {
       await this.page.getByRole('combobox', { name: 'Debit Bank Account *' }).click();
       await this.page.getByText(debitBankAccount).click();
 
-      await this.page.getByRole('textbox', { name: 'UTR Transaction Number *' }).fill(`TestUTR_${suffix}`);
-      await this.page.getByRole('textbox', { name: 'Remarks' }).fill(`TestRemark_${suffix}`);
+      await this.page.getByRole('textbox', { name: 'UTR Transaction Number *' }).fill(`TestUTR_${dateSuffix}`);
+      await this.page.getByRole('textbox', { name: 'Remarks' }).fill(`TestRemark_${dateSuffix}`);
 
       await this.page.getByRole('button', { name: 'Mark as Paid' }).click();
       await this.auth.logout();
