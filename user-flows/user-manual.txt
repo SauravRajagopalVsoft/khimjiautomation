@@ -1,0 +1,37 @@
+LOAN PIPELINE TEST — USER MANUAL
+================================
+
+Run all commands from the project root (the folder that contains package.json).
+
+ONE-TIME SETUP
+--------------
+  npm install
+  npx playwright install
+
+STEPS (run in order for a full loan)
+------------------------------------
+
+1. First valuation (Cashier)
+   Creates a loan request: customer lookup, loan details, photos, ornaments, nominee, submit.
+   Command:
+     npm run first-valuation
+
+2. Second valuation (Front Office)
+   Opens the second-valuation task and submits karat/condition.
+   Command:
+     npm run second-valuation
+
+3. BM approvals (Branch Manager)
+   Approves the loan, submits packet, confirms disbursement.
+   Command:
+     npm run bm-approval
+
+FULL PIPELINE (all 3 steps in one run — optional)
+-------------------------------------------------
+  npm run e2e
+
+NOTES
+-----
+- Steps 2 and 3 expect step 1 to have completed successfully on the same environment.
+- Each command opens a browser and runs the flow automatically; no manual clicks needed.
+- Config (URL, users) is in config/test-config.js.
